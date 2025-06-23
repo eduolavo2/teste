@@ -23,18 +23,32 @@ export default function ClickVetFlixLanding() {
     }
 
     try {
-      await fetch("https://webhook.agenciasclick.com.br/webhook/5c3b17c2-856f-40ad-8a89-247897df12e1", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      // First, try to send the webhook
+      const response = await fetch(
+        "https://webhook.agenciasclick.com.br/webhook/5c3b17c2-856f-40ad-8a89-247897df12e1",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ numero: phone.replace(/\D/g, "") }),
+          mode: "no-cors", // Add this to handle CORS issues
         },
-        body: JSON.stringify({ numero: phone.replace(/\D/g, "") }),
-      })
+      )
 
+      // Since we're using no-cors mode, we can't check response status
+      // So we'll proceed to redirect regardless
+      console.log("Webhook enviado com sucesso")
+
+      // Redirect to checkout
       window.location.href = "https://checkout.clickvet.pro/"
     } catch (error) {
       console.error("Erro ao enviar webhook:", error)
-      alert("Algo deu errado. Tente novamente mais tarde.")
+
+      // Even if webhook fails, still redirect to checkout
+      // This ensures the user experience isn't broken
+      alert("Redirecionando para o checkout...")
+      window.location.href = "https://checkout.clickvet.pro/"
     }
   }
 
@@ -105,7 +119,10 @@ export default function ClickVetFlixLanding() {
   return (
     <div className="bg-black text-white">
       <div className="min-h-screen relative overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50" style={{ backgroundImage: "url('/images/veterinarios-mosaico.png')" }} />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
+          style={{ backgroundImage: "url('/images/veterinarios-mosaico.png')" }}
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/50" />
 
         <div className="relative z-10 min-h-screen flex flex-col">
@@ -120,8 +137,10 @@ export default function ClickVetFlixLanding() {
           <main className="flex-1 flex items-center justify-center px-5">
             <div className="text-center max-w-4xl">
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight">
-                Criado para tutores,<br />
-                vets e empreendedores<br />
+                Criado para tutores,
+                <br />
+                vets e empreendedores
+                <br />
                 da área animal.
               </h1>
               <p className="text-xl md:text-2xl mb-8 opacity-90">

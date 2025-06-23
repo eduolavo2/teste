@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickVetFlix - Plataforma para Veterinários</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #000;
+            color: white;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/placeholder.svg?height=800&width=1200');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: -0.5px;
+        }
+
+        .logo .click {
+            color: #22c55e;
+        }
+
+        .logo .vet {
+            color: #ef4444;
+        }
+
+        .logo .flix {
+            color: #ef4444;
+        }
+
+        .login-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: #dc2626;
+        }
+
+        main {
+            padding: 80px 0;
+            min-height: calc(100vh - 120px);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: bold;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .pricing-info {
+            font-size: 18px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #ef4444;
+        }
+
+        .current-price {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .cancel-info {
+            font-size: 16px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .cta-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-container {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .phone-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 14px 16px;
+            border-radius: 6px;
+            font-size: 16px;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+        }
+
+        .phone-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .phone-input:focus {
+            outline: none;
+            border-color: #22c55e;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .cta-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-btn:hover {
+            background-color: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        .heart {
+            color: #3b82f6;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            header {
+                padding: 16px 0;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .login-btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+
+            main {
+                padding: 40px 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .form-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .phone-input {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .cta-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .pricing-info {
+                font-size: 16px;
+            }
+
+            .cta-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="overlay"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="click">CLICK</span><span class="vet">VET</span><span class="flix">FLIX</span>
+            </div>
+            <button class="login-btn">Entrar</button>
+        </header>
+
+        <main>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Criado para tutores,<br>
+                    vets e<br>
+                    empreendedores<br>
+                    da área animal.
+                </h1>
+                
+                <p class="pricing-info">
+                    Inclui certificado. De <span class="original-price">R$150</span> por apenas <span class="current-price">R$20,90</span>.
+                </p>
+                
+                <p class="cancel-info">
+                    Cancele quando quiser.
+                </p>
+                
+                <p class="cta-text">
+                    Quer começar agora? Deixe seu número e libere o acesso. <span class="heart">💙</span>
+                </p>
+                
+                <div class="form-container">
+                    <input 
+                        type="tel" 
+                        class="phone-input" 
+                        placeholder="Whatsapp com DDD"
+                        pattern="[0-9]{10,11}"
+                        maxlength="11"
+                    >
+                    <button class="cta-btn">
+                        Vamos lá
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Funcionalidade básica para o formulário
+        document.querySelector('.cta-btn').addEventListener('click', function() {
+            const phoneInput = document.querySelector('.phone-input');
+            const phone = phoneInput.value.trim();
+            
+            if (phone.length < 10) {
+                alert('Por favor, insira um número de telefone válido com DDD.');
+                phoneInput.focus();
+                return;
+            }
+            
+            // Aqui você pode adicionar a lógica para processar o número
+            alert(`Obrigado! Entraremos em contato através do número: ${phone}`);
+        });
+
+        // Máscara para o campo de telefone
+        document.querySelector('.phone-input').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) {
+                value = value.slice(0, 11);
+            }
+            e.target.value = value;
+        });
+
+        // Funcionalidade do botão de login
+        document.querySelector('.login-btn').addEventListener('click', function() {
+            alert('Redirecionando para a página de login...');
+        });
+    </script>
+</body>
+</html>
